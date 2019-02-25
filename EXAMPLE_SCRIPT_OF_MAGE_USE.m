@@ -109,26 +109,26 @@ ybounds=max(abs(y1))*[-1 1];
 plot(t,y1,'k');
 ylim(ybounds);
 title('Original Signal');
-xlim(p.t([1 end]));
+xlim(p.time_support([1 end]));% xlim(p.t([1 end]));
 h=subplot(4,1,2);
 y2=real(mage_filtered_output.filtered_signal);
 plot(t,y2,'r');
 ylim(ybounds);
 title('Filtered Signal 40-50 Hz');
-xlim(p.t([1 end]));
+xlim(p.time_support([1 end]));% xlim(p.t([1 end]));
 h=subplot(4,1,3);
 y3=real(mage_filtered_output.excluded_signal);
 plot(t,y3,'r');
 ylim(ybounds);
 title('Excluded Signal <40, >50 Hz');
-xlim(p.t([1 end]));
+xlim(p.time_support([1 end]));% xlim(p.t([1 end]));
 h=subplot(4,1,4);
 y4=real(mage_filtered_output.residual);
 plot(t,y4,'b');
 ylim(ybounds);
 title('Residual');
 xlabel('Time (sec)');
-xlim(p.t([1 end]));
+xlim(p.time_support([1 end]));% xlim(p.t([1 end]));
 
 % 3. Filter with Gaussian-envelope Gabor atom (FIR)
 vk=40; % Hz, center frequency of FIR filter
@@ -148,17 +148,16 @@ f_fbw=gabor_filter2_fbw(target_signal',p.sampling_rate,vk,fbw);
 fig=figure;
 set(fig,'Color','w');
 h=subplot(2,1,1);
-plot(p.t,target_signal,'k');
+plot(p.time_support,target_signal,'k');
 title('Target Signal = Bursts + Noise');
-xlim(p.t([1 end]));
+xlim(p.time_support([1 end]));% xlim(p.t([1 end]));
 ylim([-1 1]);
 h=subplot(2,1,2);
-plot(p.t,real(f_sk),'r');
+plot(p.time_support,real(f_sk),'r');
 hold on;
-plot(p.t,zeros(size(p.t)),':k');
+plot(p.time_support,zeros(size(p.time_support)),':k');
 hold off;
 title('FIR Gaussian-envelope Gabor atom filtering example');
 xlabel('Time (seconds)');
-xlim(p.t([1 end]));
-
+xlim(p.time_support([1 end]));
 
